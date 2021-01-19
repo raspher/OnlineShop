@@ -44,7 +44,7 @@
             </Grid>
         </Grid>
 
-        <TabControl Name="Baza" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Visibility="Hidden">
+        <TabControl Name="Baza" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Visibility="Visible">
             <TabItem Name="TabProdukty" Header="Produkty">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -205,18 +205,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="300px"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Name="ListaKonta" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFE5E5E5"
-                              ItemsSource="{Binding Path=Konta}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=ID}"/>
-                                <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}"/>
-                                <GridViewColumn Header="Rola" DisplayMemberBinding="{Binding Path=Rola}"/>
-                                <GridViewColumn Header="Nazwa użytkownika" DisplayMemberBinding="{Binding Path=Nazwa}"/>
-                                <GridViewColumn Header="Hasło" DisplayMemberBinding="{Binding Path=Hasło}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <DataGrid Name="dgKonta" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+
+                    </DataGrid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -247,22 +239,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="300px"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Name="ListaRole" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFE5E5E5"
-                              ItemsSource="{Binding Path=Role}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=ID}"/>
-                                <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Path=Nazwa}"/>
-                                <GridViewColumn Header="Adresy" DisplayMemberBinding="{Binding Path=Adresy}"/>
-                                <GridViewColumn Header="Konta" DisplayMemberBinding="{Binding Path=Konta}"/>
-                                <GridViewColumn Header="Oceny" DisplayMemberBinding="{Binding Path=Oceny}"/>
-                                <GridViewColumn Header="Produkty" DisplayMemberBinding="{Binding Path=Produkty}"/>
-                                <GridViewColumn Header="Role" DisplayMemberBinding="{Binding Path=Role}"/>
-                                <GridViewColumn Header="Transakcje" DisplayMemberBinding="{Binding Path=Transakcje}"/>
-                                <GridViewColumn Header="Zamówienia" DisplayMemberBinding="{Binding Path=Zamówienia}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <DataGrid Name="dgRole" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+
+                    </DataGrid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -293,18 +273,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="300px"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Name="ListaOceny" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFE5E5E5"
-                              ItemsSource="{Binding Path=Oceny}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=ID}"/>
-                                <GridViewColumn Header="Konto" DisplayMemberBinding="{Binding Path=Konto}"/>
-                                <GridViewColumn Header="Ocena" DisplayMemberBinding="{Binding Path=Ocena}"/>
-                                <GridViewColumn Header="Komentarz" DisplayMemberBinding="{Binding Path=Komentarz}"/>
-                                <GridViewColumn Header="Produkt" DisplayMemberBinding="{Binding Path=Produkt}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <DataGrid Name="dgOceny" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+
+                    </DataGrid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -332,19 +304,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="300px"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Name="ListaZamowienia" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFE5E5E5"
-                              ItemsSource="{Binding Path=Zamówienia}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=ID}"/>
-                                <GridViewColumn Header="Numer Transakcji" DisplayMemberBinding="{Binding Path=ID_TR}"/>
-                                <GridViewColumn Header="Nazwa produktu" DisplayMemberBinding="{Binding Path=P_Nazwa}"/>
-                                <GridViewColumn Header="Ilość" DisplayMemberBinding="{Binding Path=Ilość}"/>
-                                <GridViewColumn Header="SKU" DisplayMemberBinding="{Binding Path=SKU}"/>
-                                <GridViewColumn Header="EAN" DisplayMemberBinding="{Binding Path=EAN}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <DataGrid Name="dgZamowienia" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+
+                    </DataGrid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition/>

@@ -28,13 +28,14 @@ namespace OnlineShop
         public MainWindow()
         {
             InitializeComponent();
-            baza.WczytajWszystkie();
 
-
-            // przypisanie list do tabel
+            dgAdresy.ItemsSource = baza.adresy;
+            dgKonta.ItemsSource = baza.konta;
+            dgOceny.ItemsSource = baza.oceny;
             dgProdukty.ItemsSource = baza.produkty;
-
-
+            dgRole.ItemsSource = baza.role;
+            dgTransakcje.ItemsSource = baza.transakcje;
+            dgZamowienia.ItemsSource = baza.zamowienia;
 
             /*
             Baza.Visibility = Visibility.Hidden;
@@ -90,7 +91,17 @@ namespace OnlineShop
                         TabTransakcje.Visibility = rola.transakcje_o ? Visibility.Visible : Visibility.Hidden;
                         TabZamowienia.Visibility = rola.zamowienia_o ? Visibility.Visible : Visibility.Hidden;
 
+                        // TODO: zapis - nazwij i wyłącz guziki
 
+                        // TODO: w guzikach trzeba sprawdzić czy zalogowany to klient 
+                        // -> if (aktualnyUzytkownik.rola == "Klient")
+
+                        // TODO: zapis - użytkownik nie może zmienić swojej nazwy itd...
+
+                        // TODO: wczytaj odpowiednie tabele
+                        if (rola.rola == "Klient")
+                            baza.WczytajWszystkieUzytkownika(konto);
+                        
 
                         Baza.Visibility = Visibility.Visible;
                         return;
