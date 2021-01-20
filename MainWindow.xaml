@@ -44,7 +44,7 @@
             </Grid>
         </Grid>
 
-        <TabControl Name="Baza" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Visibility="Visible">
+        <TabControl Name="Baza" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Visibility="Visible" SelectionChanged="Baza_SelectionChanged">
             <TabItem Name="TabProdukty" Header="Produkty">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -125,9 +125,9 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10" Click="Button_Click_Dodaj_Produkt"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10" Click="Button_Click_Aktualizuj_Produkt"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10" Click="Button_Click_Usun_Produkt"/>
+                            <Button Name="pDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10" Click="Button_Click_Dodaj_Produkt"/>
+                            <Button Name="pAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10" Click="Button_Click_Aktualizuj_Produkt"/>
+                            <Button Name="pUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10" Click="Button_Click_Usun_Produkt"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -157,14 +157,14 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
+                            <Button Name="tDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
+                            <Button Name="tAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
+                            <Button Name="tUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
                         </Grid>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Name="TabAdresy" Header="Adresy">
+            <TabItem Name="TabAdresy" Header="Adresy" Margin="-2,-1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -192,9 +192,9 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
+                            <Button Name="aDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
+                            <Button Name="aAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
+                            <Button Name="aUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -226,9 +226,9 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
+                            <Button Name="kDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
+                            <Button Name="kAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
+                            <Button Name="kUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -241,7 +241,6 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid Name="dgRole" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                               IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
-
                     </DataGrid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -253,17 +252,44 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="7">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
-                        </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Adresy" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Konta" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Oceny" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Produkty" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Role" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Transakcje" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Zamówienia" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        
+                        <Label Content="Odczyt" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Zapis" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <CheckBox Name="Odczyt_Adresy" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Odczyt_Konta" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Odczyt_Oceny" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Odczyt_Produkty" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Odczyt_Role" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Odczyt_Transakcje" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Odczyt_Zamowienia" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <CheckBox Name="Zapis_Adresy" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Zapis_Konta" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Zapis_Oceny" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Zapis_Produkty" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Zapis_Role" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Zapis_Transakcje" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <CheckBox Name="Zapis_Zamowienia" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <Button Name="rDodaj" Content="Dodaj" Grid.Column="0" Grid.Row="8" Margin="10,10,10,10"/>
+                        <Button Name="rAktualizuj" Content="Aktualizuj"  Grid.Column="1" Grid.Row="8"  Margin="10,10,10,10"/>
+                        <Button Name="rUsun" Content="Usuń"  Grid.Column="2" Grid.Row="8"  Margin="10,10,10,10"/>
+
                     </Grid>
                 </Grid>
             </TabItem>
@@ -291,9 +317,9 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
+                            <Button Name="oDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
+                            <Button Name="oAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
+                            <Button Name="oUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -325,9 +351,9 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
+                            <Button Name="zDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
+                            <Button Name="zAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
+                            <Button Name="zUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
                         </Grid>
                     </Grid>
                 </Grid>

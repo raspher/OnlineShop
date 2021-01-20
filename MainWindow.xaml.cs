@@ -93,6 +93,34 @@ namespace OnlineShop
 
                         // TODO: zapis - nazwij i wyłącz guziki
 
+                        aAktualizuj.IsEnabled = rola.adresy_z ? true : false;
+                        aDodaj.IsEnabled = rola.adresy_z ? true : false;
+                        aUsun.IsEnabled = rola.adresy_z ? true : false;
+
+                        kAktualizuj.IsEnabled = rola.konta_z ? true : false;
+                        kDodaj.IsEnabled = rola.konta_z ? true : false;
+                        kUsun.IsEnabled = rola.konta_z ? true : false;
+
+                        oAktualizuj.IsEnabled = rola.oceny_z ? true : false;
+                        oDodaj.IsEnabled = rola.oceny_z ? true : false;
+                        oUsun.IsEnabled = rola.oceny_z ? true : false;
+
+                        pAktualizuj.IsEnabled = rola.produkty_z ? true : false;
+                        pDodaj.IsEnabled = rola.produkty_z ? true : false;
+                        pUsun.IsEnabled = rola.produkty_z ? true : false;
+
+                        rAktualizuj.IsEnabled = rola.role_z ? true : false;
+                        rDodaj.IsEnabled = rola.role_z ? true : false;
+                        rUsun.IsEnabled = rola.role_z ? true : false;
+
+                        tAktualizuj.IsEnabled = rola.transakcje_z ? true : false;
+                        tDodaj.IsEnabled = rola.transakcje_z ? true : false;
+                        tUsun.IsEnabled = rola.transakcje_z ? true : false;
+
+                        zAktualizuj.IsEnabled = rola.zamowienia_z ? true : false;
+                        zDodaj.IsEnabled = rola.zamowienia_z ? true : false;
+                        zUsun.IsEnabled = rola.zamowienia_z ? true : false;
+
                         // TODO: w guzikach trzeba sprawdzić czy zalogowany to klient 
                         // -> if (aktualnyUzytkownik.rola == "Klient")
 
@@ -168,5 +196,7 @@ namespace OnlineShop
             baza.WczytajWszystkie();
             dgProdukty.Items.Refresh();
         }
+
+       
     }
 }
