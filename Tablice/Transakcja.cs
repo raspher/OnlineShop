@@ -8,9 +8,9 @@ namespace OnlineShop.Tablice
 {
     public class Transakcja : ObservableObject
     {
-        string numer_paragonu { get; set; }
-        string uzytkownik { get; set; }
-        float kwota { get; set; }
+        public string numer_paragonu { get; set; }
+        public string uzytkownik { get; set; }
+        public float kwota { get; set; }
 
         public Transakcja(
             string _nr_paragonu,

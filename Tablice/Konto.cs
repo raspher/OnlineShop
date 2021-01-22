@@ -9,7 +9,6 @@ namespace OnlineShop.Tablice
     public class Konto : ObservableObject
     {
         public string nazwa { get; set; }
-        public string adres { get; set; }
         public string haslo { get; set; }
         public string email { get; set; }
         public string rola { get; set; }

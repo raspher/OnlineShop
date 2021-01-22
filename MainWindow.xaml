@@ -72,7 +72,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Nazwa" VerticalAlignment="Center" Margin="10,0,10,0"/>
                             <TextBox Name="PNazwa" Grid.Column="1" Margin="10,10,10,10"
-                                     Text="{Binding SelectedItem.Nazwa, ElementName=dgProdukty}"/>
+                                     Text="{Binding SelectedItem.Nazwa, ElementName=dgProdukty, Mode=OneWay}"/>
                         </Grid>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -81,7 +81,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Opis" VerticalAlignment="Center" Margin="10,0,10,0"/>
                             <TextBox Name="POpis" Grid.Column="1" Margin="10,10,10,10"
-                                     Text="{Binding SelectedItem.Opis, ElementName=dgProdukty}"/>
+                                     Text="{Binding SelectedItem.Opis, ElementName=dgProdukty, Mode=OneWay}"/>
                         </Grid>
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
@@ -90,7 +90,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Cena" VerticalAlignment="Center" Margin="10,0,10,0"/>
                             <TextBox x:Name="PCena" Grid.Column="1" Margin="10,10,10,10"
-                                     Text="{Binding SelectedItem.Cena, ElementName=dgProdukty}"/>
+                                     Text="{Binding SelectedItem.Cena, ElementName=dgProdukty, Mode=OneWay}"/>
                         </Grid>
                         <Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
@@ -99,7 +99,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Ilość" VerticalAlignment="Center" Margin="10,0,10,0"/>
                             <TextBox Name="PIlosc" Grid.Column="1" Margin="10,10,10,10"
-                                     Text="{Binding SelectedItem.Ilosc, ElementName=dgProdukty}"/>
+                                     Text="{Binding SelectedItem.Ilosc, ElementName=dgProdukty, Mode=OneWay}"/>
                         </Grid>
                         <Grid Grid.Row="4">
                             <Grid.ColumnDefinitions>
@@ -108,7 +108,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="EAN" VerticalAlignment="Center" Margin="10,0,10,0"/>
                             <TextBox Name="PEAN" Grid.Column="1" Margin="10,10,10,10"
-                                     Text="{Binding SelectedItem.EAN, ElementName=dgProdukty}"/>
+                                     Text="{Binding SelectedItem.EAN, ElementName=dgProdukty, Mode=OneWay}"/>
                         </Grid>
                         <Grid Grid.Row="5">
                             <Grid.ColumnDefinitions>
@@ -117,7 +117,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="SKU" VerticalAlignment="Center" Margin="10,0,10,0"/>
                             <TextBox Name="PSKU" Grid.Column="1" Margin="10,10,10,10"
-                                     Text="{Binding SelectedItem.SKU, ElementName=dgProdukty}"/>
+                                     Text="{Binding SelectedItem.SKU, ElementName=dgProdukty, Mode=OneWay}"/>
                         </Grid>
                         <Grid Grid.Row="6">
                             <Grid.ColumnDefinitions>
@@ -216,20 +216,36 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="7">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
-                        </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Użytkownik" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+                        <TextBox Name="k_uzytkownik" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                 Width="150" Text="{Binding SelectedItem.nazwa, ElementName=dgKonta, Mode=OneWay}"/>
+                        <Label Content="Email" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Grid.Column="0" Grid.Row="1"/>
+                        <TextBox Name="k_email" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                 Width="150" Text="{Binding SelectedItem.email, ElementName=dgKonta, Mode=OneWay}"/>
+                        <Label Content="Hasło" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Grid.Column="0" Grid.Row="2"/>
+                        <TextBox Name="k_haslo" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                                 Width="150" Text="{Binding SelectedItem.haslo, ElementName=dgKonta, Mode=OneWay}"/>
+                        <Label Content="Rola" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Grid.Column="0" Grid.Row="3"/>
+                        <ComboBox Name="k_cb" 
+                                  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  Width="100"/>
+
+                        <Button Content="Dodaj" Grid.Column="0" Grid.Row="4" Margin="10,10,10,10" Click="Button_Click_Dodaj_Konto"/>
+                        <Button Content="Aktualizuj"  Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" Click="Button_Click_Aktualizuj_Konto"/>
+                        <Button Content="Usuń"  Grid.Column="2" Grid.Row="4" Margin="10,10,10,10" Click="Button_Click_Usun_Konto"/>
                     </Grid>
                 </Grid>
             </TabItem>

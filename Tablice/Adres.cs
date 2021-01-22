@@ -8,15 +8,15 @@ namespace OnlineShop.Tablice
 {
     public class Adres : ObservableObject
     {
-        int id { get; set; }
-        string kodPocztowy { get; set; }
-        string miejscowosc { get; set; }
-        string ulica { get; set; }
-        string dom { get; set; }
-        string imie { get; set; }
-        string nazwisko { get; set; }
-        int telefon { get; set; }
-        string uzytkownik { get; set; }
+        public int id { get; set; }
+        public string kodPocztowy { get; set; }
+        public string miejscowosc { get; set; }
+        public string ulica { get; set; }
+        public string dom { get; set; }
+        public string imie { get; set; }
+        public string nazwisko { get; set; }
+        public int telefon { get; set; }
+        public string uzytkownik { get; set; }
 
         public Adres(
             int _id,
