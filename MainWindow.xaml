@@ -340,16 +340,19 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="7">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Name="oDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Name="oAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Name="oUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
-                        </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Ocena" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Komentarz" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Użytkownik" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Nazwa produktu" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <Button Name="oDodaj" Content="Dodaj" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10"/>
+                        <Button Name="oAktualizuj" Content="Aktualizuj" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10"/>
+                        <Button Name="oUsun" Content="Usuń" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"/>
                     </Grid>
                 </Grid>
             </TabItem>
