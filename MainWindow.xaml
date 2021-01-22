@@ -286,22 +286,35 @@
                         <Label Content="Odczyt" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <Label Content="Zapis" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                        <CheckBox Name="Odczyt_Adresy" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Odczyt_Konta" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Odczyt_Oceny" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Odczyt_Produkty" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Odczyt_Role" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Odczyt_Transakcje" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Odczyt_Zamowienia" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                        <CheckBox Name="Zapis_Adresy" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Zapis_Konta" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Zapis_Oceny" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Zapis_Produkty" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Zapis_Role" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Zapis_Transakcje" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <CheckBox Name="Zapis_Zamowienia" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+                        <CheckBox Name="Odczyt_Adresy" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.adresy_o, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Odczyt_Konta" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.konta_o, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Odczyt_Oceny" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.oceny_o, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Odczyt_Produkty" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.produkty_o, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Odczyt_Role" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.role_o, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Odczyt_Transakcje" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.transakcje_o, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Odczyt_Zamowienia" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.zamowienia_o, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Zapis_Adresy" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.adresy_z, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Zapis_Konta" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.konta_z, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Zapis_Oceny" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.oceny_z, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Zapis_Produkty" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.produkty_z, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Zapis_Role" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.role_z, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Zapis_Transakcje" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.transakcje_z, ElementName=dgRole, Mode=OneWay}"/>
+                        <CheckBox Name="Zapis_Zamowienia" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  IsChecked="{Binding SelectedItem.zamowienia_z, ElementName=dgRole, Mode=OneWay}"/>
+                        
                         <Button Name="rDodaj" Content="Dodaj" Grid.Column="0" Grid.Row="8" Margin="10,10,10,10"/>
                         <Button Name="rAktualizuj" Content="Aktualizuj"  Grid.Column="1" Grid.Row="8"  Margin="10,10,10,10"/>
                         <Button Name="rUsun" Content="Usuń"  Grid.Column="2" Grid.Row="8"  Margin="10,10,10,10"/>
