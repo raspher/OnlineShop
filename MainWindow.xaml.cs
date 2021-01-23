@@ -41,6 +41,8 @@ namespace OnlineShop
 
             // ładowanie zasobów do panelu
             k_cb.ItemsSource = baza.role.Select(x => x.rola).ToList();
+            o_Ocena.ItemsSource = new List<int>(new int[] { 1, 2, 3, 4, 5 });
+            o_Użytkownik.ItemsSource = baza.WczytajProduktyKupione(aktualnyUzytkownik);
         }
 
         private void Odswiez_Baze() {

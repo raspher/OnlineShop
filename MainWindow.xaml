@@ -238,7 +238,7 @@
                                  Width="150" Text="{Binding SelectedItem.haslo, ElementName=dgKonta, Mode=OneWay}"/>
                         <Label Content="Rola" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                Grid.Column="0" Grid.Row="3"/>
-                        <ComboBox Name="k_cb" 
+                        <ComboBox Name="k_cb" SelectedValue="{Binding SelectedItem.rola, ElementName=dgKonta, Mode=OneWay}"
                                   Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
                                   Width="100"/>
@@ -353,7 +353,14 @@
                         <Label Content="Komentarz" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <Label Content="Użytkownik" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <Label Content="Nazwa produktu" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+                        <ComboBox Name="o_Ocena" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="50px" Height="30px"
+                                 SelectedValue="{Binding SelectedItem.ocena, ElementName=dgOceny, Mode=OneWay}"/>
+                        <TextBox Name="o_Komentarz" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.komentarz, ElementName=dgOceny, Mode=OneWay}"/>
+                        <ComboBox Name="o_Użytkownik" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     SelectedValue="{Binding SelectedItem.uzytkownik, ElementName=dgOceny, Mode=OneWay}"/>
+                        <ComboBox Name="o_Produkt" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="30px" Margin="10,0,10,0"
+                                      SelectedValue="{Binding SelectedItem.produkt, ElementName=dgOceny, Mode=OneWay}"/>
                         <Button Name="oDodaj" Content="Dodaj" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10"/>
                         <Button Name="oAktualizuj" Content="Aktualizuj" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10"/>
                         <Button Name="oUsun" Content="Usuń" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"/>

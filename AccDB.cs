@@ -50,7 +50,6 @@ namespace OnlineShop
         // Ładowanie danych
         public void WczytajWszystkie()
         {
-            
             WczytajAdresy();
             WczytajKonta();
             WczytajOceny();
@@ -68,6 +67,28 @@ namespace OnlineShop
             WczytajProdukty();
             WczytajTransakcjeU(konto);
             WczytajZamowieniaU(konto);
+        }
+        
+        public List<string> WczytajProduktyKupione(Konto konto)
+        {
+            var rezultat = new List<string>();
+            if (konto.rola == "klient")
+            {
+                foreach (var zamowienie in transakcje)
+                {
+                    if (zamowienie.uzytkownik == konto.nazwa)
+                        rezultat.AddRange(zamowienia.Where(x => x.paragon == zamowienie.numer_paragonu).Select(x => x.produkt).ToList());
+                }
+            }
+            else
+            {
+                foreach (var zamowienie in transakcje)
+                {
+                    rezultat.AddRange(zamowienia.Where(x => x.paragon == zamowienie.numer_paragonu).Select(x => x.produkt).ToList());
+                }
+            }
+
+            return rezultat;
         }
 
         public void WczytajAdresy()
