@@ -261,5 +261,116 @@ namespace OnlineShop
             baza.WczytajWszystkie();
             dgKonta.Items.Refresh();
         }
+
+        private void Button_Click_Dodaj_Role(object sender, RoutedEventArgs e)
+        {
+            foreach (var rola in baza.role)
+            {
+                if (rola.rola == R_Nazwa.Text)
+                {
+                    MessageBox.Show($"Podana rola już istnieje!");
+                    return;
+                }
+
+                if (R_Nazwa.Text == "")
+                {
+                    MessageBox.Show($"Podaj nazwe roli!");
+                    return;
+                }
+
+            }
+
+            var cmd = new OleDbCommand(
+                $"INSERT INTO Role (" +
+                $"  Rola," +
+                $"  Adresy_Odczyt," +
+                $"  Adresy_Zapis," +
+                $"  Konta_Odczyt," +
+                $"  Konta_Zapis," +
+                $"  Oceny_Odczyt," +
+                $"  Oceny_Zapis," +
+                $"  Produkty_Odczyt," +
+                $"  Produkty_Zapis," +
+                $"  Role_Odczyt," +
+                $"  Role_Zapis," +
+                $"  Transakcje_Odczyt," +
+                $"  Transakcje_Zapis," +
+                $"  Zamówienia_Odczyt," +
+                $"  Zamówienia_Zapis)" +
+                $"VALUES (" +
+                $"  '{R_Nazwa.Text}'," +
+                $"  '{((bool)R_Adresy_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Adresy_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Konta_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Konta_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Oceny_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Oceny_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Produkty_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Produkty_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Role_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Role_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Transakcje_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Transakcje_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Zamowienia_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  '{((bool)R_Zamowienia_Zapis.IsChecked ? 1 : 0)}')", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgRole.Items.Refresh();
+        }
+
+        private void Button_Click_Aktualizuj_Role(object sender, RoutedEventArgs e)
+        {
+            if (!baza.role.Exists(x => x.rola == R_Nazwa.Text))
+            {
+                MessageBox.Show("Podana rola nie istnieje!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"UPDATE Role SET " +
+                $"  Rola='{R_Nazwa.Text}'," +
+                $"  Adresy_Odczyt='{((bool)R_Adresy_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  Adresy_Zapis='{((bool)R_Adresy_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  Konta_Odczyt='{((bool)R_Konta_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  Konta_Zapis='{((bool)R_Konta_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  Oceny_Odczyt='{((bool)R_Oceny_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  Oceny_Zapis='{((bool)R_Oceny_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  Produkty_Odczyt='{((bool)R_Produkty_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  Produkty_Zapis='{((bool)R_Produkty_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  Role_Odczyt='{((bool)R_Role_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  Role_Zapis='{((bool)R_Role_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  Transakcje_Odczyt='{((bool)R_Transakcje_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  Transakcje_Zapis='{((bool)R_Transakcje_Zapis.IsChecked ? 1 : 0)}'," +
+                $"  Zamówienia_Odczyt='{((bool)R_Zamowienia_Odczyt.IsChecked ? 1 : 0)}'," +
+                $"  Zamówienia_Zapis='{((bool)R_Zamowienia_Zapis.IsChecked ? 1 : 0)}'" +
+                $"  WHERE Rola='{R_Nazwa.Text}'", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgRole.Items.Refresh();
+        }
+
+        private void Button_Click_Usun_Role(object sender, RoutedEventArgs e)
+        {
+            if (!baza.role.Exists(x => x.rola == R_Nazwa.Text))
+            {
+                MessageBox.Show("Podana rola nie istnieje!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"DELETE FROM Role WHERE Rola='{R_Nazwa.Text}'", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgRole.Items.Refresh();
+        }
     }
 }
