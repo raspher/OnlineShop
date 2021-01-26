@@ -29,10 +29,10 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBox Name="Login" Text="Nazwa użytkownika" Margin="10,0,10,0" />
+                        <TextBox Name="Login" Text="admin" Margin="10,0,10,0" />
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox Name="Haslo" Text="Hasło" Margin="10,0,10,0"/>
+                        <TextBox Name="Haslo" Text="admin" Margin="10,0,10,0"/>
                     </Grid>
                     <Grid Grid.Column="2" Margin="10,0,10,0">
                         <Button Content="Login" Click="Button_Click_Login"/>
@@ -148,19 +148,26 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="7">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Name="tDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Name="tAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Name="tUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
-                        </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Paragon" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Użytkownik" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Kwota" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBox Name="t_Paragon" Grid.Column="1" HorizontalAlignment="Stretch" Height="30px" Grid.ColumnSpan="2" Margin="10,10,10,10"
+                                 Text="{Binding SelectedItem.numer_paragonu, ElementName=dgTransakcje, Mode=OneWay}"/>
+                        <ComboBox Name="t_uzytkownik" SelectedValue="{Binding SelectedItem.uzytkownik, ElementName=dgTransakcje, Mode=OneWay}"
+                                  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  Width="100"/>
+                        <TextBox Name="t_Kwota" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Height="30px" Grid.ColumnSpan="2" Margin="10,10,10,10"
+                                 Text="{Binding SelectedItem.kwota, ElementName=dgTransakcje, Mode=OneWay}"/>
+                        <Button Name="tDodaj" Click="Button_Click_Dodaj_Transakcje" Grid.Row="3" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
+                        <Button Name="tAktualizuj" Click="Button_Click_Aktualizuj_Transakcje" Grid.Row="3" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
+                        <Button Name="tUsun" Click="Button_Click_Usun_Transakcje" Grid.Row="3" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -186,16 +193,42 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="7">
-                            <Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Name="aDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Name="aAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Name="aUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
-                        </Grid>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Miejscowość" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Ulica" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Dom" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Kod Pocztowy" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Imię" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Nazwisko" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Telefon" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Użytkownik" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBox Name="a_id" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.id, ElementName=dgAdresy, Mode=OneWay}" Visibility="Hidden"/>
+                        <TextBox Name="a_miejscowosc" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.miejscowosc, ElementName=dgAdresy, Mode=OneWay}"/>
+                        <TextBox Name="a_ulica" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.ulica, ElementName=dgAdresy, Mode=OneWay}"/>
+                        <TextBox Name="a_dom" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.dom, ElementName=dgAdresy, Mode=OneWay}"/>
+                        <TextBox Name="a_kodPocztowy" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.kodPocztowy, ElementName=dgAdresy, Mode=OneWay}"/>
+                        <TextBox Name="a_imie" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.imie, ElementName=dgAdresy, Mode=OneWay}"/>
+                        <TextBox Name="a_nazwisko" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.nazwisko, ElementName=dgAdresy, Mode=OneWay}"/>
+                        <TextBox Name="a_telefon" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
+                                     Text="{Binding SelectedItem.telefon, ElementName=dgAdresy, Mode=OneWay}"/>
+                        <ComboBox Name="a_uzytkownik" SelectedValue="{Binding SelectedItem.uzytkownik, ElementName=dgAdresy, Mode=OneWay}"
+                                  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  Width="100"/>
+                        <Button Name="aDodaj" Click="Button_Click_Dodaj_Adres" Content="Dodaj" Grid.Row="8" Grid.Column="0" Margin="10,10,10,10"/>
+                        <Button Name="aAktualizuj" Click="Button_Click_Aktualizuj_Adres" Content="Aktualizuj" Grid.Row="8" Grid.Column="1" Margin="10,10,10,10"/>
+                        <Button Name="aUsun" Click="Button_Click_Usun_Adres" Content="Usuń" Grid.Row="8" Grid.Column="2" Margin="10,10,10,10"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -356,14 +389,28 @@
                         <ComboBox Name="o_Ocena" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="50px" Height="30px"
                                  SelectedValue="{Binding SelectedItem.ocena, ElementName=dgOceny, Mode=OneWay}"/>
                         <TextBox Name="o_Komentarz" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
-                                     Text="{Binding SelectedItem.komentarz, ElementName=dgOceny, Mode=OneWay}"/>
+                                 Text="{Binding SelectedItem.komentarz, ElementName=dgOceny, Mode=OneWay}"/>
+                        <TextBox Name="o_sku" Visibility="Hidden"
+                                 Text="{Binding SelectedItem.SKU, ElementName=o_Produkt, Mode=OneWay}"/>
+                        <TextBox Name="o_id" Visibility="Hidden"
+                                 Text="{Binding SelectedItem.id, ElementName=dgOceny, Mode=OneWay}"/>
                         <ComboBox Name="o_Użytkownik" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,10"
                                      SelectedValue="{Binding SelectedItem.uzytkownik, ElementName=dgOceny, Mode=OneWay}"/>
                         <ComboBox Name="o_Produkt" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="30px" Margin="10,0,10,0"
-                                      SelectedValue="{Binding SelectedItem.produkt, ElementName=dgOceny, Mode=OneWay}"/>
-                        <Button Name="oDodaj" Content="Dodaj" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10"/>
-                        <Button Name="oAktualizuj" Content="Aktualizuj" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10"/>
-                        <Button Name="oUsun" Content="Usuń" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"/>
+                                      SelectedValue="{Binding SelectedItem.produkt, ElementName=dgOceny, Mode=OneWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding SKU}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding Nazwa}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button Name="oDodaj" Click="Button_Click_Dodaj_Ocene" Content="Dodaj" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10"/>
+                        <Button Name="oAktualizuj" Click="Button_Click_Aktualizuj_Ocene" Content="Aktualizuj" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10"/>
+                        <Button Name="oUsun" Click="Button_Click_Usun_Ocene" Content="Usuń" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -383,21 +430,64 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="7">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Name="zDodaj" Content="Dodaj" Grid.Column="0" Margin="10,10,10,10"/>
-                            <Button Name="zAktualizuj" Content="Aktualizuj"  Grid.Column="1" Margin="10,10,10,10"/>
-                            <Button Name="zUsun" Content="Usuń"  Grid.Column="2" Margin="10,10,10,10"/>
-                        </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Paragon" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Produkt (sku)" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Adres" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBox Name="z_paragon" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30px" Margin="10,10,10,10"
+                                 Text="{Binding SelectedItem.paragon, ElementName=dgZamowienia, Mode=OneWay}"/>
+                        <TextBox Name="z_id" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30px" Margin="10,10,10,10"
+                                 Text="{Binding SelectedItem.id, ElementName=dgZamowienia, Mode=OneWay}" Visibility="Hidden"/>
+                        <TextBox Name="z_sku" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="30px" Margin="10,10,10,10"
+                                 Text="{Binding SelectedItem.SKU, ElementName=z_produkt, Mode=OneWay}" Visibility="Hidden" />
+                        <ComboBox Name="z_produkt" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30px"
+                                  Margin="10,10,10,10" 
+                                  SelectedValue="{Binding SelectedItem.produkt, ElementName=dgZamowienia, Mode=OneWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding SKU}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding Nazwa}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ComboBox Name="z_adres" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30px"
+                                  Margin="10,10,10,10">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding ulica}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding dom}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding miejscowosc}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding kodPocztowy}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding imie}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding nazwisko}"/>
+                                        <TextBlock Text=" | "/>
+                                        <TextBlock Text="{Binding telefon}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button Name="zDodaj" Click="Button_Click_Dodaj_Zamowienie" Content="Dodaj" Grid.Row="7" Grid.Column="0" Margin="10,10,10,10"/>
+                        <Button Name="zAktualizuj" Click="Button_Click_Aktualizuj_Zamowienie" Content="Aktualizuj" Grid.Row="7" Grid.Column="1" Margin="10,10,10,10"/>
+                        <Button Name="zUsun" Click="Button_Click_Usun_Zamowinie" Content="Usuń" Grid.Row="7" Grid.Column="2" Margin="10,10,10,10"/>
                     </Grid>
                 </Grid>
             </TabItem>

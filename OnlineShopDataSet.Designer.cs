@@ -48,11 +48,11 @@ namespace OnlineShop {
         
         private global::System.Data.DataRelation relationKontaOceny;
         
-        private global::System.Data.DataRelation relationProduktyZamówienia;
-        
         private global::System.Data.DataRelation relationTransakcjeZamówienia;
         
         private global::System.Data.DataRelation relationAdresyZamówienia;
+        
+        private global::System.Data.DataRelation relationProduktyZamówienia;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -359,9 +359,9 @@ namespace OnlineShop {
             this.relationKontaTransakcje = this.Relations["KontaTransakcje"];
             this.relationKontaAdresy = this.Relations["KontaAdresy"];
             this.relationKontaOceny = this.Relations["KontaOceny"];
-            this.relationProduktyZamówienia = this.Relations["ProduktyZamówienia"];
             this.relationTransakcjeZamówienia = this.Relations["TransakcjeZamówienia"];
             this.relationAdresyZamówienia = this.Relations["AdresyZamówienia"];
+            this.relationProduktyZamówienia = this.Relations["ProduktyZamówienia"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -406,10 +406,6 @@ namespace OnlineShop {
                         this.tableKonta.UżytkownikColumn}, new global::System.Data.DataColumn[] {
                         this.tableOceny.UżytkownikColumn}, false);
             this.Relations.Add(this.relationKontaOceny);
-            this.relationProduktyZamówienia = new global::System.Data.DataRelation("ProduktyZamówienia", new global::System.Data.DataColumn[] {
-                        this.tableProdukty.SKUColumn}, new global::System.Data.DataColumn[] {
-                        this.tableZamówienia.ProduktColumn}, false);
-            this.Relations.Add(this.relationProduktyZamówienia);
             this.relationTransakcjeZamówienia = new global::System.Data.DataRelation("TransakcjeZamówienia", new global::System.Data.DataColumn[] {
                         this.tableTransakcje.Numer_ParagonuColumn}, new global::System.Data.DataColumn[] {
                         this.tableZamówienia.ParagonColumn}, false);
@@ -418,6 +414,10 @@ namespace OnlineShop {
                         this.tableAdresy.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableZamówienia.AdresColumn}, false);
             this.Relations.Add(this.relationAdresyZamówienia);
+            this.relationProduktyZamówienia = new global::System.Data.DataRelation("ProduktyZamówienia", new global::System.Data.DataColumn[] {
+                        this.tableProdukty.SKUColumn}, new global::System.Data.DataColumn[] {
+                        this.tableZamówienia.Produkt_SKUColumn}, false);
+            this.Relations.Add(this.relationProduktyZamówienia);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2643,9 +2643,9 @@ namespace OnlineShop {
             
             private global::System.Data.DataColumn columnParagon;
             
-            private global::System.Data.DataColumn columnProdukt;
-            
             private global::System.Data.DataColumn columnAdres;
+            
+            private global::System.Data.DataColumn columnProdukt_SKU;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -2698,17 +2698,17 @@ namespace OnlineShop {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ProduktColumn {
+            public global::System.Data.DataColumn AdresColumn {
                 get {
-                    return this.columnProdukt;
+                    return this.columnAdres;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn AdresColumn {
+            public global::System.Data.DataColumn Produkt_SKUColumn {
                 get {
-                    return this.columnAdres;
+                    return this.columnProdukt_SKU;
                 }
             }
             
@@ -2749,7 +2749,7 @@ namespace OnlineShop {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ZamówieniaRow AddZamówieniaRow(TransakcjeRow parentTransakcjeRowByTransakcjeZamówienia, ProduktyRow parentProduktyRowByProduktyZamówienia, AdresyRow parentAdresyRowByAdresyZamówienia) {
+            public ZamówieniaRow AddZamówieniaRow(TransakcjeRow parentTransakcjeRowByTransakcjeZamówienia, AdresyRow parentAdresyRowByAdresyZamówienia, ProduktyRow parentProduktyRowByProduktyZamówienia) {
                 ZamówieniaRow rowZamówieniaRow = ((ZamówieniaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -2759,11 +2759,11 @@ namespace OnlineShop {
                 if ((parentTransakcjeRowByTransakcjeZamówienia != null)) {
                     columnValuesArray[1] = parentTransakcjeRowByTransakcjeZamówienia[0];
                 }
-                if ((parentProduktyRowByProduktyZamówienia != null)) {
-                    columnValuesArray[2] = parentProduktyRowByProduktyZamówienia[0];
-                }
                 if ((parentAdresyRowByAdresyZamówienia != null)) {
-                    columnValuesArray[3] = parentAdresyRowByAdresyZamówienia[0];
+                    columnValuesArray[2] = parentAdresyRowByAdresyZamówienia[0];
+                }
+                if ((parentProduktyRowByProduktyZamówienia != null)) {
+                    columnValuesArray[3] = parentProduktyRowByProduktyZamówienia[0];
                 }
                 rowZamówieniaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowZamówieniaRow);
@@ -2796,8 +2796,8 @@ namespace OnlineShop {
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
                 this.columnParagon = base.Columns["Paragon"];
-                this.columnProdukt = base.Columns["Produkt"];
                 this.columnAdres = base.Columns["Adres"];
+                this.columnProdukt_SKU = base.Columns["Produkt_SKU"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2807,10 +2807,10 @@ namespace OnlineShop {
                 base.Columns.Add(this.columnID);
                 this.columnParagon = new global::System.Data.DataColumn("Paragon", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnParagon);
-                this.columnProdukt = new global::System.Data.DataColumn("Produkt", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProdukt);
                 this.columnAdres = new global::System.Data.DataColumn("Adres", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAdres);
+                this.columnProdukt_SKU = new global::System.Data.DataColumn("Produkt_SKU", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProdukt_SKU);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -2819,7 +2819,7 @@ namespace OnlineShop {
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnParagon.MaxLength = 536870910;
-                this.columnProdukt.MaxLength = 536870910;
+                this.columnProdukt_SKU.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4296,22 +4296,6 @@ namespace OnlineShop {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Produkt {
-                get {
-                    try {
-                        return ((string)(this[this.tableZamówienia.ProduktColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'Produkt\' w tabeli \'Zamówienia\' to DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableZamówienia.ProduktColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int Adres {
                 get {
                     try {
@@ -4328,12 +4312,17 @@ namespace OnlineShop {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProduktyRow ProduktyRow {
+            public string Produkt_SKU {
                 get {
-                    return ((ProduktyRow)(this.GetParentRow(this.Table.ParentRelations["ProduktyZamówienia"])));
+                    try {
+                        return ((string)(this[this.tableZamówienia.Produkt_SKUColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'Produkt_SKU\' w tabeli \'Zamówienia\' to DBNull.", e);
+                    }
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ProduktyZamówienia"]);
+                    this[this.tableZamówienia.Produkt_SKUColumn] = value;
                 }
             }
             
@@ -4361,6 +4350,17 @@ namespace OnlineShop {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProduktyRow ProduktyRow {
+                get {
+                    return ((ProduktyRow)(this.GetParentRow(this.Table.ParentRelations["ProduktyZamówienia"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ProduktyZamówienia"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsParagonNull() {
                 return this.IsNull(this.tableZamówienia.ParagonColumn);
             }
@@ -4373,18 +4373,6 @@ namespace OnlineShop {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsProduktNull() {
-                return this.IsNull(this.tableZamówienia.ProduktColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetProduktNull() {
-                this[this.tableZamówienia.ProduktColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsAdresNull() {
                 return this.IsNull(this.tableZamówienia.AdresColumn);
             }
@@ -4393,6 +4381,18 @@ namespace OnlineShop {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetAdresNull() {
                 this[this.tableZamówienia.AdresColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsProdukt_SKUNull() {
+                return this.IsNull(this.tableZamówienia.Produkt_SKUColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetProdukt_SKUNull() {
+                this[this.tableZamówienia.Produkt_SKUColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -7528,46 +7528,43 @@ namespace OnlineShop.OnlineShopDataSetTableAdapters {
             tableMapping.DataSetTable = "Zamówienia";
             tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("Paragon", "Paragon");
-            tableMapping.ColumnMappings.Add("Produkt", "Produkt");
             tableMapping.ColumnMappings.Add("Adres", "Adres");
+            tableMapping.ColumnMappings.Add("Produkt_SKU", "Produkt_SKU");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM `Zamówienia` WHERE ((`ID` = ?) AND ((? = 1 AND `Paragon` IS NULL) OR " +
-                "(`Paragon` = ?)) AND ((? = 1 AND `Produkt` IS NULL) OR (`Produkt` = ?)) AND ((? " +
-                "= 1 AND `Adres` IS NULL) OR (`Adres` = ?)))";
+                "(`Paragon` = ?)) AND ((? = 1 AND `Adres` IS NULL) OR (`Adres` = ?)) AND ((? = 1 " +
+                "AND `Produkt_SKU` IS NULL) OR (`Produkt_SKU` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Paragon", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Paragon", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Paragon", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Paragon", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Produkt", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Produkt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Adres", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Adres", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Adres", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Adres", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Produkt_SKU", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt_SKU", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Produkt_SKU", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt_SKU", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `Zamówienia` (`Paragon`, `Produkt`, `Adres`) VALUES (?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `Zamówienia` (`Paragon`, `Adres`, `Produkt_SKU`) VALUES (?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Paragon", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Paragon", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Produkt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Adres", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Adres", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Produkt_SKU", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt_SKU", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `Zamówienia` SET `Paragon` = ?, `Produkt` = ?, `Adres` = ? WHERE ((`ID` = " +
-                "?) AND ((? = 1 AND `Paragon` IS NULL) OR (`Paragon` = ?)) AND ((? = 1 AND `Produ" +
-                "kt` IS NULL) OR (`Produkt` = ?)) AND ((? = 1 AND `Adres` IS NULL) OR (`Adres` = " +
-                "?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Zamówienia` SET `Paragon` = ?, `Adres` = ?, `Produkt_SKU` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `Paragon` IS NULL) OR (`Paragon` = ?)) AND ((? = 1 AND `Adres` IS NULL) OR (`Adres` = ?)) AND ((? = 1 AND `Produkt_SKU` IS NULL) OR (`Produkt_SKU` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Paragon", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Paragon", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Produkt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Adres", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Adres", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Produkt_SKU", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt_SKU", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Paragon", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Paragon", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Paragon", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Paragon", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Produkt", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Produkt", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Adres", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Adres", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Adres", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Adres", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Produkt_SKU", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt_SKU", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Produkt_SKU", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Produkt_SKU", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7583,7 +7580,7 @@ namespace OnlineShop.OnlineShopDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Paragon, Produkt, Adres FROM Zamówienia";
+            this._commandCollection[0].CommandText = "SELECT ID, Paragon, Adres, Produkt_SKU FROM Zamówienia";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7644,7 +7641,7 @@ namespace OnlineShop.OnlineShopDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, string Original_Paragon, string Original_Produkt, global::System.Nullable<int> Original_Adres) {
+        public virtual int Delete(int Original_ID, string Original_Paragon, global::System.Nullable<int> Original_Adres, string Original_Produkt_SKU) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             if ((Original_Paragon == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -7654,21 +7651,21 @@ namespace OnlineShop.OnlineShopDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Paragon));
             }
-            if ((Original_Produkt == null)) {
+            if ((Original_Adres.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_Adres.Value));
+            }
+            else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_Produkt));
-            }
-            if ((Original_Adres.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_Adres.Value));
-            }
-            else {
+            if ((Original_Produkt_SKU == null)) {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_Produkt_SKU));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7690,24 +7687,24 @@ namespace OnlineShop.OnlineShopDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Paragon, string Produkt, global::System.Nullable<int> Adres) {
+        public virtual int Insert(string Paragon, global::System.Nullable<int> Adres, string Produkt_SKU) {
             if ((Paragon == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Paragon));
             }
-            if ((Produkt == null)) {
+            if ((Adres.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Adres.Value));
+            }
+            else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Produkt));
-            }
-            if ((Adres.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(Adres.Value));
-            }
-            else {
+            if ((Produkt_SKU == null)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Produkt_SKU));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7729,24 +7726,24 @@ namespace OnlineShop.OnlineShopDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Paragon, string Produkt, global::System.Nullable<int> Adres, int Original_ID, string Original_Paragon, string Original_Produkt, global::System.Nullable<int> Original_Adres) {
+        public virtual int Update(string Paragon, global::System.Nullable<int> Adres, string Produkt_SKU, int Original_ID, string Original_Paragon, global::System.Nullable<int> Original_Adres, string Original_Produkt_SKU) {
             if ((Paragon == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Paragon));
             }
-            if ((Produkt == null)) {
+            if ((Adres.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Adres.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Produkt));
-            }
-            if ((Adres.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Adres.Value));
-            }
-            else {
+            if ((Produkt_SKU == null)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Produkt_SKU));
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ID));
             if ((Original_Paragon == null)) {
@@ -7757,21 +7754,21 @@ namespace OnlineShop.OnlineShopDataSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
                 this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_Paragon));
             }
-            if ((Original_Produkt == null)) {
+            if ((Original_Adres.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Adres.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Produkt));
-            }
-            if ((Original_Adres.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Adres.Value));
-            }
-            else {
+            if ((Original_Produkt_SKU == null)) {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_Produkt_SKU));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 

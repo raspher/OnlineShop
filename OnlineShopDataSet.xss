@@ -83,19 +83,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:ProduktyZamówienia" ZOrder="3" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>1283</X>
-          <Y>137</Y>
-        </Point>
-        <Point>
-          <X>1353</X>
-          <Y>137</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:TransakcjeZamówienia" ZOrder="2" LineWidth="11">
+    <Connector ID="DesignRelation:TransakcjeZamówienia" ZOrder="3" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>276</X>
@@ -107,7 +95,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:AdresyZamówienia" ZOrder="1" LineWidth="11">
+    <Connector ID="DesignRelation:AdresyZamówienia" ZOrder="2" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>530</X>
@@ -116,6 +104,18 @@
         <Point>
           <X>1353</X>
           <Y>146</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:ProduktyZamówienia" ZOrder="1" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>1283</X>
+          <Y>138</Y>
+        </Point>
+        <Point>
+          <X>1353</X>
+          <Y>138</Y>
         </Point>
       </RoutePoints>
     </Connector>

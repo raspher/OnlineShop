@@ -10,12 +10,12 @@ namespace OnlineShop.Tablice
     {
         public string numer_paragonu { get; set; }
         public string uzytkownik { get; set; }
-        public float kwota { get; set; }
+        public decimal kwota { get; set; }
 
         public Transakcja(
             string _nr_paragonu,
             string _uzytkownik,
-            float _kwota
+            decimal _kwota
             )
         {
             this.numer_paragonu = _nr_paragonu;

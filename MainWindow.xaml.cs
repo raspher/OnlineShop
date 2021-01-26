@@ -29,6 +29,16 @@ namespace OnlineShop
         {
             InitializeComponent();
             baza.WczytajWszystkie();
+        }
+
+        private void Odswiez_Baze() {
+            if (aktualnyUzytkownik.rola == "klient") {
+                baza.WczytajWszystkieUzytkownika(aktualnyUzytkownik);
+            } 
+            else
+            {
+                baza.WczytajWszystkie();
+            }
 
             // ładowanie do tabelek
             dgAdresy.ItemsSource = baza.adresy;
@@ -40,19 +50,22 @@ namespace OnlineShop
             dgZamowienia.ItemsSource = baza.zamowienia;
 
             // ładowanie zasobów do panelu
+            a_uzytkownik.ItemsSource = baza.konta.Select(x => x.nazwa).ToList();
             k_cb.ItemsSource = baza.role.Select(x => x.rola).ToList();
             o_Ocena.ItemsSource = new List<int>(new int[] { 1, 2, 3, 4, 5 });
-            o_Użytkownik.ItemsSource = baza.WczytajProduktyKupione(aktualnyUzytkownik);
-        }
+            o_Produkt.ItemsSource = baza.WczytajProduktyKupione(aktualnyUzytkownik);
+            o_Użytkownik.ItemsSource = baza.konta.Select(x => x.nazwa).ToList();
+            t_uzytkownik.ItemsSource = baza.konta.Select(x => x.nazwa).ToList();
+            z_adres.ItemsSource = baza.adresy;
+            z_produkt.ItemsSource = baza.produkty;
 
-        private void Odswiez_Baze() {
-            if (aktualnyUzytkownik.rola == "klient") {
-                baza.WczytajWszystkieUzytkownika(aktualnyUzytkownik);
-            } 
-            else
-            {
-                baza.WczytajWszystkie();
-            }
+            dgAdresy.Items.Refresh();
+            dgKonta.Items.Refresh();
+            dgOceny.Items.Refresh();
+            dgProdukty.Items.Refresh();
+            dgRole.Items.Refresh();
+            dgTransakcje.Items.Refresh();
+            dgZamowienia.Items.Refresh();
         }
 
         private void Button_Click_Login(object sender, RoutedEventArgs e)
@@ -68,13 +81,13 @@ namespace OnlineShop
 
                         // ładuj uprawnienia
                         //odczyt
-                        TabAdresy.Visibility = rola.adresy_o ? Visibility.Visible : Visibility.Hidden;
-                        TabKonta.Visibility = rola.konta_o ? Visibility.Visible : Visibility.Hidden;
-                        TabOceny.Visibility = rola.oceny_o ? Visibility.Visible : Visibility.Hidden;
-                        TabProdukty.Visibility = rola.produkty_o ? Visibility.Visible : Visibility.Hidden;
-                        TabRole.Visibility = rola.role_o ? Visibility.Visible : Visibility.Hidden;
-                        TabTransakcje.Visibility = rola.transakcje_o ? Visibility.Visible : Visibility.Hidden;
-                        TabZamowienia.Visibility = rola.zamowienia_o ? Visibility.Visible : Visibility.Hidden;
+                        TabAdresy.Visibility = rola.adresy_o ? Visibility.Visible : Visibility.Collapsed;
+                        TabKonta.Visibility = rola.konta_o ? Visibility.Visible : Visibility.Collapsed;
+                        TabOceny.Visibility = rola.oceny_o ? Visibility.Visible : Visibility.Collapsed;
+                        TabProdukty.Visibility = rola.produkty_o ? Visibility.Visible : Visibility.Collapsed;
+                        TabRole.Visibility = rola.role_o ? Visibility.Visible : Visibility.Collapsed;
+                        TabTransakcje.Visibility = rola.transakcje_o ? Visibility.Visible : Visibility.Collapsed;
+                        TabZamowienia.Visibility = rola.zamowienia_o ? Visibility.Visible : Visibility.Collapsed;
 
                         // TODO: zapis - nazwij i wyłącz guziki
 
@@ -373,6 +386,269 @@ namespace OnlineShop
             baza.conn.Close();
             Odswiez_Baze();
             dgRole.Items.Refresh();
+        }
+
+        private void Button_Click_Dodaj_Adres(object sender, RoutedEventArgs e)
+        {
+            foreach (var adres in baza.adresy)
+            {
+                if (a_uzytkownik.SelectedValue.ToString() == "")
+                {
+                    MessageBox.Show($"Podaj nazwe użytkownika!");
+                    return;
+                }
+
+            }
+
+            var cmd = new OleDbCommand(
+                $"INSERT INTO Adresy (" +
+                $"  [Miejscowość]," +
+                $"  Ulica," +
+                $"  Dom," +
+                $"  Kod_Pocztowy," +
+                $"  Imie," +
+                $"  Nazwisko," +
+                $"  Telefon," +
+                $"  Użytkownik) " +
+                $"VALUES (" +
+                $"  '{a_miejscowosc.Text}'," +
+                $"  '{a_ulica.Text}'," +
+                $"  '{a_dom.Text}'," +
+                $"  '{a_kodPocztowy.Text}'," +
+                $"  '{a_imie.Text}'," +
+                $"  '{a_nazwisko.Text}'," +
+                $"  {int.Parse(a_telefon.Text)}," +
+                $"  '{a_uzytkownik.SelectedValue}')", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgAdresy.Items.Refresh();
+        }
+
+        private void Button_Click_Aktualizuj_Adres(object sender, RoutedEventArgs e)
+        {
+            if (a_id.Text == "")
+            {
+                MessageBox.Show("Zaznacz wpis do aktualizacji!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"UPDATE Adresy SET " +
+                $"  Miejscowość='{a_miejscowosc.Text}'," +
+                $"  Ulica='{a_ulica.Text}'," +
+                $"  Dom='{a_dom.Text}'," +
+                $"  Kod_Pocztowy='{a_kodPocztowy.Text}'," +
+                $"  Imie='{a_imie.Text}'," +
+                $"  Nazwisko='{a_nazwisko.Text}'," +
+                $"  Telefon={int.Parse(a_telefon.Text)}," +
+                $"  Użytkownik='{a_uzytkownik.Text}' " +
+                $"  WHERE ID={int.Parse(a_id.Text)}", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgAdresy.Items.Refresh();
+        }
+
+        private void Button_Click_Usun_Adres(object sender, RoutedEventArgs e)
+        {
+            if (baza.zamowienia.Exists(x => x.adres.ToString() == a_id.Text))
+            {
+                MessageBox.Show("Podany adres jest wykorzystywany w zamówieniach!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"DELETE FROM Adresy WHERE ID={int.Parse(a_id.Text)}", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgAdresy.Items.Refresh();
+        }
+
+        private void Button_Click_Dodaj_Zamowienie(object sender, RoutedEventArgs e)
+        {
+            var cmd = new OleDbCommand(
+                $"INSERT INTO [Zamówienia] (" +
+                $"  Paragon," +
+                $"  Produkt_SKU," +
+                $"  Adres) " +
+                $"VALUES (" +
+                $"  '{z_paragon.Text}'," +
+                $"  '{z_sku.Text}'," +
+                $"  '{baza.adresy[z_adres.SelectedIndex].id}')", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgZamowienia.Items.Refresh();
+        }
+
+        private void Button_Click_Aktualizuj_Zamowienie(object sender, RoutedEventArgs e)
+        {
+            if (z_id.Text == "")
+            {
+                MessageBox.Show("Zaznacz wpis do aktualizacji!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"UPDATE [Zamówienia] SET " +
+                $"  Paragon='{z_paragon.Text}'," +
+                $"  Produkt_SKU='{z_sku.Text}'," +
+                $"  Adres={baza.adresy[z_adres.SelectedIndex].id} " +
+                $"WHERE ID={int.Parse(z_id.Text)}", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgZamowienia.Items.Refresh();
+        }
+
+        private void Button_Click_Usun_Zamowinie(object sender, RoutedEventArgs e)
+        {
+            if (baza.transakcje.Exists(x => x.numer_paragonu.ToString() == z_paragon.Text))
+            {
+                MessageBox.Show("Podane zamówienie zostało już opłacone!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"DELETE FROM [Zamówienia] WHERE ID={int.Parse(z_id.Text)}", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgZamowienia.Items.Refresh();
+        }
+
+        private void Button_Click_Dodaj_Ocene(object sender, RoutedEventArgs e)
+        {
+            var cmd = new OleDbCommand(
+                $"INSERT INTO [Oceny] (" +
+                $"  Ocena," +
+                $"  Komentarz," +
+                $"  Użytkownik," +
+                $"  Produkt) " +
+                $"VALUES (" +
+                $"  {int.Parse(o_Ocena.Text)}," +
+                $"  '{o_Komentarz.Text}'," +
+                $"  '{o_Użytkownik.Text}'," +
+                $"  '{o_sku.Text}')", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgOceny.Items.Refresh();
+        }
+
+        private void Button_Click_Aktualizuj_Ocene(object sender, RoutedEventArgs e)
+        {
+            if (o_id.Text == "")
+            {
+                MessageBox.Show("Zaznacz wpis do aktualizacji!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"UPDATE [Oceny] SET " +
+                $"  Ocena='{int.Parse(o_Ocena.Text)}'," +
+                $"  Komentarz='{o_Komentarz.Text}'," +
+                $"  Użytkownik='{o_Użytkownik.Text}', " +
+                $"  Produkt='{o_sku.Text}' " +
+                $"WHERE ID={int.Parse(o_id.Text)}", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgOceny.Items.Refresh();
+        }
+
+        private void Button_Click_Usun_Ocene(object sender, RoutedEventArgs e)
+        {
+            if (o_id.Text == "")
+            {
+                MessageBox.Show("Zaznacz wpis do usunięcia!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"DELETE FROM [Oceny] WHERE ID={int.Parse(o_id.Text)}", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgOceny.Items.Refresh();
+        }
+
+        private void Button_Click_Dodaj_Transakcje(object sender, RoutedEventArgs e)
+        {
+            var cmd = new OleDbCommand(
+                $"INSERT INTO [Transakcje] (" +
+                $"  Numer_Paragonu," +
+                $"  Użytkownik," +
+                $"  Kwota) " +
+                $"VALUES (" +
+                $"  '{t_Paragon.Text}'," +
+                $"  '{t_uzytkownik.Text}'," +
+                $"  {t_Kwota.Text})", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgTransakcje.Items.Refresh();
+        }
+
+        private void Button_Click_Aktualizuj_Transakcje(object sender, RoutedEventArgs e)
+        {
+            if (t_Paragon.Text == "")
+            {
+                MessageBox.Show("Zaznacz wpis do aktualizacji!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"UPDATE [Transakcje] SET " +
+                $"  Użytkownik='{t_uzytkownik.Text}', " +
+                $"  Kwota={t_Kwota.Text} " +
+                $"WHERE Numer_Paragonu='{t_Paragon.Text}'", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgTransakcje.Items.Refresh();
+        }
+
+        private void Button_Click_Usun_Transakcje(object sender, RoutedEventArgs e)
+        {
+            if (t_Paragon.Text == "")
+            {
+                MessageBox.Show("Zaznacz wpis do usunięcia!");
+                return;
+            }
+
+            var cmd = new OleDbCommand(
+                $"DELETE FROM [Transakcje] WHERE Numer_Paragonu='{t_Paragon.Text}'", baza.conn);
+
+            baza.conn.Open();
+            cmd.ExecuteNonQuery();
+            baza.conn.Close();
+            Odswiez_Baze();
+            dgTransakcje.Items.Refresh();
         }
     }
 }

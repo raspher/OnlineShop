@@ -64,27 +64,33 @@ namespace OnlineShop
             WczytajAdresyU(konto);
             WczytajKontoU(konto);
             WczytajOcenyU(konto);
+            WczytajRoleU(konto);
             WczytajProdukty();
             WczytajTransakcjeU(konto);
             WczytajZamowieniaU(konto);
         }
         
-        public List<string> WczytajProduktyKupione(Konto konto)
+        public List<Produkt> WczytajProduktyKupione(Konto konto)
         {
-            var rezultat = new List<string>();
+            var rezultat = new List<Produkt>();
             if (konto.rola == "klient")
             {
-                foreach (var zamowienie in transakcje)
+                foreach (var transakcja in transakcje)
                 {
-                    if (zamowienie.uzytkownik == konto.nazwa)
-                        rezultat.AddRange(zamowienia.Where(x => x.paragon == zamowienie.numer_paragonu).Select(x => x.produkt).ToList());
+                    if (transakcja.uzytkownik == konto.nazwa)
+                        foreach (var zamowienie in zamowienia.Where(y => y.paragon == transakcja.numer_paragonu)) {
+                            if (!(rezultat.FindIndex(x => x.SKU == zamowienie.produkt) >= 0))
+                                rezultat.Add(produkty.Find(x => x.SKU == zamowienie.produkt));
+                        }
+                    
                 }
             }
             else
             {
-                foreach (var zamowienie in transakcje)
+                foreach (var zamowienie in zamowienia)
                 {
-                    rezultat.AddRange(zamowienia.Where(x => x.paragon == zamowienie.numer_paragonu).Select(x => x.produkt).ToList());
+                    if (!(rezultat.FindIndex(x => x.SKU == zamowienie.produkt) >= 0))
+                        rezultat.Add(produkty.Find(x => x.SKU == zamowienie.produkt));
                 }
             }
 
@@ -221,7 +227,7 @@ namespace OnlineShop
         {
             conn.Open();
 
-            var zapytanie = $"Select * from Oceny Użytkownik='{konto.nazwa}'";
+            var zapytanie = $"Select * from Oceny WHERE Użytkownik='{konto.nazwa}'";
             OleDbCommand komenda = new OleDbCommand(zapytanie, conn);
             OleDbDataReader reader = komenda.ExecuteReader();
 
@@ -300,6 +306,40 @@ namespace OnlineShop
             conn.Close();
         }
 
+        public void WczytajRoleU(Konto aktualnyUzytkownik)
+        {
+            conn.Open();
+
+            var zapytanie = $"Select * from Role WHERE Rola = '{aktualnyUzytkownik.rola}'";
+            OleDbCommand komenda = new OleDbCommand(zapytanie, conn);
+            OleDbDataReader reader = komenda.ExecuteReader();
+
+            role.Clear();
+            while (reader.Read())
+            {
+                Rola rola = new Rola(
+                    reader.GetString(0),        // rola
+                    reader.GetBoolean(1),       // adresy odczyt
+                    reader.GetBoolean(2),       // adresy zapis
+                    reader.GetBoolean(3),       // konta odczyt
+                    reader.GetBoolean(4),       // konta zapis
+                    reader.GetBoolean(5),       // oceny odczyt
+                    reader.GetBoolean(6),       // oceny zapis
+                    reader.GetBoolean(7),       // produkty odczyt
+                    reader.GetBoolean(8),       // produkty zapis
+                    reader.GetBoolean(9),       // role odczyt
+                    reader.GetBoolean(10),      // role zapis
+                    reader.GetBoolean(11),      // transakcje odczyt
+                    reader.GetBoolean(12),      // transakcje zapis
+                    reader.GetBoolean(13),      // zamowienia odczyt
+                    reader.GetBoolean(14)       // zamowienia zapis
+                    );
+                role.Add(rola);
+            }
+
+            conn.Close();
+        }
+
         public void WczytajRole(Konto konto)
         {
             conn.Open();
@@ -348,7 +388,7 @@ namespace OnlineShop
                 Transakcja transakcja = new Transakcja(
                     reader.GetString(0),     // paragon
                     reader.GetString(1),    // uzytkownik  
-                    reader.GetFloat(2)    // kwota
+                    reader.GetDecimal(2)    // kwota
                     );
                 transakcje.Add(transakcja);
             }
@@ -370,7 +410,7 @@ namespace OnlineShop
                 Transakcja transakcja = new Transakcja(
                     reader.GetString(0),     // paragon
                     reader.GetString(1),    // uzytkownik  
-                    reader.GetFloat(2)    // kwota
+                    reader.GetDecimal(2)    // kwota
                     );
                 transakcje.Add(transakcja);
             }
@@ -405,7 +445,9 @@ namespace OnlineShop
         {
             conn.Open();
 
-            var zapytanie = $"Select * from Zamówienia WHERE Użytkownik='{konto.nazwa}'";
+            var zapytanie = $"Select * from Zamówienia " +
+                $"INNER JOIN Transakcje ON Transakcje.Numer_Paragonu = Zamówienia.Paragon " +
+                $"WHERE Transakcje.Użytkownik='{konto.nazwa}'";
             OleDbCommand komenda = new OleDbCommand(zapytanie, conn);
             OleDbDataReader reader = komenda.ExecuteReader();
 
